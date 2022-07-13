@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Differences</title>
+</head>
+<body>
+<h2>Base structure</h2>
+<p><code>/execute</p> is a command that runs another command, but with modifiers. The base structure of new `/execute` is as follows:
+
+    execute <subcommands> run <command>
+
+* Between `execute` and `run` go the modifiers, which will be referred to as *subcommands*.
+* After the word `run` goes the command to run, hereafter referred to as the *command*.
+
+## Old MCBE `/execute` to new `/execute` ##
+
+Old MCBE `/execute` is simply the same as new `/execute`, but with *fixed* subcommands.
+That is, you do not get to choose which subcommands to apply, you must only use the subcommands in a certain order.
+
+Every old `/execute` command can be turned into a new `/execute` command like so:
+
+    execute @e[tag=test] ~12 ~23 ~34 summon lightning_bolt
+    
+    execute as @e[tag=test] at @s positioned ~12 ~23 ~34 run summon lightning_bolt
+<!---->
+    execute @e[tag=test] ~12 ~23 ~34 detect ~ ~-1 ~ stone 0 summon lightning_bolt
+    
+    execute as @e[tag=test] at @s positioned ~12 ~23 ~34 if block ~ ~-1 ~ stone 0 run summon lightning_bolt
+
+Or, in general form,
+
+    execute <entity> <coords> run <command>
+    
+    execute as <entity> at @s positioned <coords> run <command>
+<!---->
+    execute <entity> <coords> detect <coords> <block> <data> <command>
+    
+    execute as <entity> at @s positioned <coords> if block <coords> <block> <data> run <command>
+    
+With new `/execute`, you are no longer restricted to these two variants presented above.
+You can choose any number of subcommands, in any order, to modify the way the command is run.
+
+So, let's look at some subcommands:
+
+## Subcommands ##
+Subcommands present in both Java Edition and Bedrock Edition:
+<table>
+  <thead>
+    <tr>
+      <th>Subcommand</th>
+      <th>Syntax</th>
+      <th>Layman's terms</th>
+      <th>Technical terms</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><code>as</code></th>
+      <td><pre>execute as &lt;entity&gt;<br>execute as @e[tag=test]</pre></td>
+      <td>Change <em>who</em> executes the command.</td>
+      <td>Change the command <em>executor</em> to the specified entity(ies).</td>
+      <td>
+        <ul>
+          <li>This changes</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+	</table>
+</body>
+</html>
